@@ -31,6 +31,15 @@ def are_there_players() -> bool:
         return False
 
 
+def is_player_defined(player: int) -> bool:
+    if player == 1 and player1 != "":
+        return True
+    elif player == 2 and player2 != "":
+        return True
+    else:
+        return False
+
+
 def get_word() -> str:
     global current_word_state
     return current_word_state
@@ -47,6 +56,17 @@ def update_statistics(name: str, hits: int = 0, misses: int = 0, wins: int = 0, 
         print("statistics successfully updated")
     else:
         print("Error while updating statistics")
+
+
+def get_statistics(player: int) -> str:
+    global player1, player2
+    if player == 1:
+        name = player1
+    else:
+        name = player2
+    stats = Database_Logic.read_statistics(name).split("\n")
+    result = "hits: "+stats[0]+"\nmisses: "+stats[1]+"\nwins: "+stats[2]+"\nlosses: "+stats[3]
+    return result
 
 
 def on_submit(entry: str, gui: GUI.HangmanGUI):

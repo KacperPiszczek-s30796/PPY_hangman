@@ -11,6 +11,7 @@ class HangmanGUI:
         self.menu_frame = tk.Frame(self.root)
         self.game_frame = tk.Frame(self.root)
         self.end_frame = tk.Frame(self.root)
+        self.statistics_frame = tk.Frame(self.root)
         # Menu
         self.menu_label = tk.Label(self.menu_frame, text="Main Menu", font=("Arial", 40))
         self.menu_start = tk.Button(self.menu_frame, text="Start Standard Game")
@@ -61,6 +62,8 @@ class HangmanGUI:
         self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
         self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
+        self.menu_player1_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(1)))
+        self.menu_player2_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(2)))
         # end
         self.end_label = tk.Label(self.end_frame, text="Game ended", font=("Arial", 24))
         self.end_button = tk.Button(self.end_frame, text="Back to menu")
@@ -96,6 +99,17 @@ class HangmanGUI:
 
         self.button.config(command=lambda: Game_Logic.on_submit(self.entry.get(), self))
 
+        # statistics
+        self.statistics_Label = tk.Label(self.statistics_frame, text="Statistics")
+        self.statistics_button = tk.Button(self.statistics_frame, text="Back to menu")
+        self.statistics_data = tk.Label(self.statistics_frame, text="")
+
+        self.statistics_Label.grid(row=0, column=0)
+        self.statistics_button.grid(row=1, column=0)
+        self.statistics_data.grid(row=2, column=0)
+
+        self.statistics_button.config(command=lambda: (self.show_frame(self.menu_frame), self.clear_statistics()))
+
     def next_image(self):
         self.I_counter += 1
         image_path = "png/hangman" + str(self.I_counter) + ".png"
@@ -118,9 +132,17 @@ class HangmanGUI:
                 self.labelI.configure(image=image)
                 self.labelI.image = image
 
-            for frame in (self.menu_frame, self.game_frame, self.end_frame):
+            for frame in (self.menu_frame, self.game_frame, self.end_frame, self.statistics_frame):
                 frame.pack_forget()
             frame_to_show.pack(fill="both", expand=True)
+
+    def set_statistics_frame(self, player: int):
+        import Game_Logic
+        if Game_Logic.is_player_defined(player):
+            self.statistics_data.config(text=Game_Logic.get_statistics(player))
+
+    def clear_statistics(self):
+        self.statistics_data.config(text="")
 
     def start(self):
         self.show_frame(self.menu_frame)
