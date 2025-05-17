@@ -39,3 +39,7 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         i_counter = gui.next_image()
         if i_counter >= 12:
             gui.end()
+
+
+def register(name: str, password: str):
+    Database_Logic.register(name, password)

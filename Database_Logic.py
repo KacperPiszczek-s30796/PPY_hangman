@@ -1,4 +1,5 @@
 import random
+import os
 
 
 def get_random_word():
@@ -16,3 +17,13 @@ def get_random_word():
     except Exception as e:
         print("Error while loading word", e)
         return "Error"
+
+
+def register(name: str, password: str):
+    path = "players/"+name+".txt"
+    if os.path.exists(path):
+        return False
+    else:
+        with open(path, "w") as file:
+            file.write(password)
+        return True
