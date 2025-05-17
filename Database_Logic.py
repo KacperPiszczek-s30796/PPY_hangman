@@ -27,3 +27,17 @@ def register(name: str, password: str):
         with open(path, "w") as file:
             file.write(password)
         return True
+
+
+def login(name: str, password: str):
+    path = "players/" + name + ".txt"
+    if os.path.exists(path):
+        with open(path, "r") as file:
+            text = file.read()
+        rows = text.strip().split("\n")
+        if rows[0].strip() == password.strip():
+            return True
+        else:
+            return False
+    else:
+        return False

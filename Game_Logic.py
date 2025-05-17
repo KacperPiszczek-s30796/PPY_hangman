@@ -42,4 +42,10 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
 
 
 def register(name: str, password: str):
-    Database_Logic.register(name, password)
+    if Database_Logic.register(name, password):
+        print("successfully registered")
+
+
+def login(name: str, password: str):
+    if Database_Logic.login(name, password):
+        print("successfully logged in")
