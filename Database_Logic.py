@@ -2,7 +2,7 @@ import random
 import os
 
 
-def get_random_word():
+def get_random_word() -> str:
     with open("Categories.txt", "r") as file:
         category = file.read()
     categories = category.strip().split("\n")
@@ -19,7 +19,7 @@ def get_random_word():
         return "Error"
 
 
-def register(name: str, password: str):
+def register(name: str, password: str) -> bool:
     path = "players/"+name+".txt"
     if os.path.exists(path):
         return False
@@ -29,7 +29,7 @@ def register(name: str, password: str):
         return True
 
 
-def login(name: str, password: str):
+def login(name: str, password: str) -> bool:
     path = "players/" + name + ".txt"
     if os.path.exists(path):
         with open(path, "r") as file:
@@ -41,3 +41,21 @@ def login(name: str, password: str):
             return False
     else:
         return False
+
+
+def read_statistics(name: str) -> str:
+    path = "players/" + name + ".txt"
+    with open(path, "r") as file:
+        text = file.read()
+    statistics = text.strip().split("\n", 1)
+    return statistics[1]
+
+
+def write_statistics(name: str, statistics: str) -> bool:
+    path = "players/" + name + ".txt"
+    with open(path, "r") as file:
+        lines = file.readlines()
+    first_line = lines[0]
+    with open(path, "w") as file:
+        file.write(first_line+"\n"+statistics)
+    return True

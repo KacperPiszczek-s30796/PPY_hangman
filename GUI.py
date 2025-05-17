@@ -57,10 +57,10 @@ class HangmanGUI:
         self.menu_player2_statistics.grid(row=8, column=2)
 
         self.menu_button.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self)))
-        self.menu_player1_register.config(command=lambda: Game_Logic.register(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
-        self.menu_player2_register.config(command=lambda: Game_Logic.register(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
-        self.menu_player1_login.config(command=lambda: Game_Logic.login(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
-        self.menu_player2_login.config(command=lambda: Game_Logic.login(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
+        self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
+        self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
+        self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
+        self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         # end
         self.end_label = tk.Label(self.end_frame, text="Game ended", font=("Arial", 24))
         self.end_button = tk.Button(self.end_frame, text="Back to menu", command=lambda: self.show_frame(self.menu_frame))
