@@ -61,3 +61,10 @@ def write_statistics(name: str, statistics: str) -> bool:
     with open(path, "w") as file:
         file.write(first_line+"\n"+statistics)
     return True
+
+
+def export(name: str, text: str) -> bool:
+    path = "exports/" + name + ".txt"
+    with open(path, "w") as file:
+        file.write(text)
+    return True

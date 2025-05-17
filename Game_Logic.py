@@ -6,6 +6,11 @@ current_word_state = ""
 player1 = ""
 player2 = ""
 turn = 0
+hits1 = 0
+misses1 = 0
+hits2 = 0
+misses2 = 0
+win = True
 
 
 def setup_standard_mode(gui: GUI.HangmanGUI):
@@ -13,7 +18,6 @@ def setup_standard_mode(gui: GUI.HangmanGUI):
         global word
         global current_word_state
         word = Database_Logic.get_random_word()
-        current_word_state = ""
         for i in range(0, len(word)):
             current_word_state += "_ "
         print(word)
@@ -46,18 +50,16 @@ def update_statistics(name: str, hits: int = 0, misses: int = 0, wins: int = 0, 
 
 
 def on_submit(entry: str, gui: GUI.HangmanGUI):
-    global current_word_state
-    global word
-    global player1
-    global player2
-    global turn
+    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win
     print("letter/word entered:", entry)
     entry = entry.strip().lower()
     if entry in word.lower():
         if turn % 2 == 0:
             update_statistics(player1, hits=1)
+            hits1 += 1
         else:
             update_statistics(player2, hits=1)
+            hits2 += 1
         print("correct")
         index = word.find(entry)*2
         entry = " ".join(entry)+" "
@@ -66,21 +68,20 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         if current_word_state == " ".join(word)+" ":
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
-            player1 = ""
-            player2 = ""
             gui.end()
     else:
         if turn % 2 == 0:
             update_statistics(player1, misses=1)
+            misses1 += 1
         else:
             update_statistics(player2, misses=1)
+            misses2 += 1
         print("incorrect")
         i_counter = gui.next_image()
         if i_counter >= 12:
             update_statistics(player1, losses=1)
             update_statistics(player2, losses=1)
-            player1 = ""
-            player2 = ""
+            win = False
             gui.end()
     turn += 1
 
@@ -119,3 +120,39 @@ def login_player2(name: str, password: str):
         player2 = name
     else:
         print("failed to log in")
+
+
+def export_player1():
+    if win:
+        result = "\nresult: won"
+    else:
+        result = "\nresult: lost"
+    if Database_Logic.export(player1, "hits: "+str(hits1)+"\nmisses: "+str(misses1)+result):
+        print("player successfully exported")
+    else:
+        print("failed to export player")
+
+
+def export_player2():
+    if win:
+        result = "\nresult: won"
+    else:
+        result = "\nresult: lost"
+    if Database_Logic.export(player2, "hits: " + str(hits2) + "\nmisses: " + str(misses2) + result):
+        print("player successfully exported")
+    else:
+        print("failed to export player")
+
+
+def clear():
+    global player1, player2, word, current_word_state, turn, hits1, misses1, hits2, misses2, win
+    player1 = ""
+    player2 = ""
+    word = ""
+    current_word_state = ""
+    turn = 0
+    hits1 = 0
+    misses1 = 0
+    hits2 = 0
+    misses2 = 0
+    win = True

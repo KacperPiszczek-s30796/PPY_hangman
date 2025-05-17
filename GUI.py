@@ -63,11 +63,22 @@ class HangmanGUI:
         self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         # end
         self.end_label = tk.Label(self.end_frame, text="Game ended", font=("Arial", 24))
-        self.end_button = tk.Button(self.end_frame, text="Back to menu", command=lambda: self.show_frame(self.menu_frame))
+        self.end_button = tk.Button(self.end_frame, text="Back to menu")
+        self.end_player1_label = tk.Label(self.end_frame, text="Player1: ", font=("Arial", 24))
+        self.end_player1_button = tk.Button(self.end_frame, text="Export results")
+        self.end_player2_label = tk.Label(self.end_frame, text="Player2: ", font=("Arial", 24))
+        self.end_player2_button = tk.Button(self.end_frame, text="Export results")
 
         self.end_label.grid(row=0, column=0)
         self.end_button.grid(row=1, column=0)
+        self.end_player1_label.grid(row=2, column=0)
+        self.end_player1_button.grid(row=2, column=1)
+        self.end_player2_label.grid(row=3, column=0)
+        self.end_player2_button.grid(row=3, column=1)
 
+        self.end_button.config(command=lambda: (self.show_frame(self.menu_frame), Game_Logic.clear()))
+        self.end_player1_button.config(command=lambda: Game_Logic.export_player1())
+        self.end_player2_button.config(command=lambda: Game_Logic.export_player2())
         # Game
         self.label = tk.Label(self.game_frame, text="Enter letter/word:")
         self.entry = tk.Entry(self.game_frame)
