@@ -13,7 +13,7 @@ class HangmanGUI:
         self.end_frame = tk.Frame(self.root)
         # Menu
         self.menu_label = tk.Label(self.menu_frame, text="Main Menu", font=("Arial", 40))
-        self.menu_button = tk.Button(self.menu_frame, text="Start Standard Game")
+        self.menu_start = tk.Button(self.menu_frame, text="Start Standard Game")
         self.menu_button2 = tk.Button(self.menu_frame, text="Start Special Game")
         self.menu_settings = tk.Button(self.menu_frame, text="Settings")
         self.menu_player1_label = tk.Label(self.menu_frame, text="Player1", font=("Arial", 24))
@@ -35,7 +35,7 @@ class HangmanGUI:
         self.menu_player2_statistics = tk.Button(self.menu_frame, text="Statistics")
 
         self.menu_label.grid(row=0, column=0)
-        self.menu_button.grid(row=1, column=0)
+        self.menu_start.grid(row=1, column=0)
         self.menu_button2.grid(row=1, column=1)
         self.menu_settings.grid(row=1, column=2)
         self.menu_player1_label.grid(row=3, column=0)
@@ -56,7 +56,7 @@ class HangmanGUI:
         self.menu_player2_register.grid(row=8, column=1)
         self.menu_player2_statistics.grid(row=8, column=2)
 
-        self.menu_button.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self)))
+        self.menu_start.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self)))
         self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
         self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
@@ -98,16 +98,18 @@ class HangmanGUI:
         self.word.configure(text=Game_Logic.get_word())
 
     def show_frame(self, frame_to_show):
-        if frame_to_show == self.game_frame:
-            self.entry.delete(0, tk.END)
-            image_path = "png/hangman0.png"
-            image = tk.PhotoImage(file=image_path)
-            self.labelI.configure(image=image)
-            self.labelI.image = image
+        import Game_Logic
+        if not (not Game_Logic.are_there_players() and frame_to_show == self.game_frame):
+            if frame_to_show == self.game_frame:
+                self.entry.delete(0, tk.END)
+                image_path = "png/hangman0.png"
+                image = tk.PhotoImage(file=image_path)
+                self.labelI.configure(image=image)
+                self.labelI.image = image
 
-        for frame in (self.menu_frame, self.game_frame, self.end_frame):
-            frame.pack_forget()
-        frame_to_show.pack(fill="both", expand=True)
+            for frame in (self.menu_frame, self.game_frame, self.end_frame):
+                frame.pack_forget()
+            frame_to_show.pack(fill="both", expand=True)
 
     def start(self):
         self.show_frame(self.menu_frame)

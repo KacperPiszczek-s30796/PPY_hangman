@@ -48,6 +48,8 @@ def read_statistics(name: str) -> str:
     with open(path, "r") as file:
         text = file.read()
     statistics = text.strip().split("\n", 1)
+    if len(statistics) == 1:
+        return "0\n0\n0\n0"
     return statistics[1]
 
 
@@ -55,7 +57,7 @@ def write_statistics(name: str, statistics: str) -> bool:
     path = "players/" + name + ".txt"
     with open(path, "r") as file:
         lines = file.readlines()
-    first_line = lines[0]
+    first_line = lines[0].strip()
     with open(path, "w") as file:
         file.write(first_line+"\n"+statistics)
     return True

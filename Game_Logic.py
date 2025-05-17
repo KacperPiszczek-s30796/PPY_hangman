@@ -9,14 +9,22 @@ turn = 0
 
 
 def setup_standard_mode(gui: GUI.HangmanGUI):
-    global word
-    global current_word_state
-    word = Database_Logic.get_random_word()
-    current_word_state = ""
-    for i in range(0, len(word)):
-        current_word_state += "_ "
-    print(word)
-    gui.update_word()
+    if are_there_players():
+        global word
+        global current_word_state
+        word = Database_Logic.get_random_word()
+        current_word_state = ""
+        for i in range(0, len(word)):
+            current_word_state += "_ "
+        print(word)
+        gui.update_word()
+
+
+def are_there_players() -> bool:
+    if player1 != "" and player2 != "":
+        return True
+    else:
+        return False
 
 
 def get_word() -> str:
@@ -26,8 +34,6 @@ def get_word() -> str:
 
 def update_statistics(name: str, hits: int = 0, misses: int = 0, wins: int = 0, losses: int = 0):
     statistics = Database_Logic.read_statistics(name).split("\n")
-    if len(statistics) < 4:
-        statistics = ["0", "0", "0", "0"]
     new_hits = str(int(statistics[0])+hits)
     new_misses = str(int(statistics[1])+misses)
     new_wins = str(int(statistics[2])+wins)
@@ -60,6 +66,8 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         if current_word_state == " ".join(word)+" ":
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
+            player1 = ""
+            player2 = ""
             gui.end()
     else:
         if turn % 2 == 0:
@@ -71,6 +79,8 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         if i_counter >= 12:
             update_statistics(player1, losses=1)
             update_statistics(player2, losses=1)
+            player1 = ""
+            player2 = ""
             gui.end()
     turn += 1
 
