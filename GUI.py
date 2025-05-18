@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 
 class HangmanGUI:
@@ -7,6 +8,8 @@ class HangmanGUI:
         self.root = tk.Tk()
         self.root.title("Hang man")
         self.root.geometry("1000x700")
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
         self.large_font = ("Arial", 32, "bold")
         self.menu_frame = tk.Frame(self.root)
         self.game_frame = tk.Frame(self.root)
@@ -14,6 +17,7 @@ class HangmanGUI:
         self.end_frame = tk.Frame(self.root)
         self.statistics_frame = tk.Frame(self.root)
         self.settings_frame = tk.Frame(self.root)
+        self.settings_category = "random"
         # Menu
         self.menu_label = tk.Label(self.menu_frame, text="Main Menu", font=("Arial", 40))
         self.menu_start = tk.Button(self.menu_frame, text="Start Standard Game")
@@ -59,8 +63,8 @@ class HangmanGUI:
         self.menu_player2_register.grid(row=8, column=1)
         self.menu_player2_statistics.grid(row=8, column=2)
 
-        self.menu_start.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self)))
-        self.menu_button2.config(command=lambda: (self.show_frame(self.special_game_frame), Game_Logic.setup_special_mode(self)))
+        self.menu_start.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self, self.settings_category)))
+        self.menu_button2.config(command=lambda: (self.show_frame(self.special_game_frame), Game_Logic.setup_special_mode(self, self.settings_category)))
         self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
         self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
@@ -117,11 +121,17 @@ class HangmanGUI:
         # settings
         self.settings_label = tk.Label(self.settings_frame, text="Settings")
         self.settings_button = tk.Button(self.settings_frame, text="Back to menu")
+        self.settings_label_category = tk.Label(self.settings_frame, text="Category: ")
+        self.settings_combobox_category = ttk.Combobox(self.settings_frame, values=Game_Logic.get_categories())
 
         self.settings_label.grid(row=0, column=0)
         self.settings_button.grid(row=1, column=0)
+        self.settings_label_category.grid(row=2, column=0)
+        self.settings_combobox_category.grid(row=2, column=1)
 
         self.settings_button.config(command=lambda: self.show_frame(self.menu_frame))
+        self.settings_combobox_category.current(0)
+        self.settings_combobox_category.bind("<<ComboboxSelected>>", self.on_select)
 
         # Special Game
         self.special_label = tk.Label(self.special_game_frame, text="Enter letter/word:")
@@ -141,6 +151,10 @@ class HangmanGUI:
         self.special_button.grid(row=3, column=0, columnspan=2, pady=10)
 
         self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
+
+    def on_select(self, event):
+        selected = self.settings_combobox_category.get()
+        self.settings_category = selected
 
     def repeated_over_time_code(self):
         import Game_Logic
@@ -187,8 +201,8 @@ class HangmanGUI:
                 self.special_labelI.image = image
 
             for frame in (self.menu_frame, self.game_frame, self.end_frame, self.statistics_frame, self.settings_frame, self.special_game_frame):
-                frame.pack_forget()
-            frame_to_show.pack(fill="both", expand=True)
+                frame.grid_forget()
+            frame_to_show.grid(row=0, column=0, sticky="nsew")
 
     def set_statistics_frame(self, player: int):
         import Game_Logic

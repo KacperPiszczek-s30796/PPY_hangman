@@ -16,11 +16,14 @@ win = True
 clock_start = datetime.now()
 
 
-def setup_standard_mode(gui: GUI.HangmanGUI):
+def setup_standard_mode(gui: GUI.HangmanGUI, category: str):
     if are_there_players():
         global word
         global current_word_state
-        word = Database_Logic.get_random_word()
+        if category == "random":
+            word = Database_Logic.get_random_word()
+        else:
+            word = Database_Logic.get_word_from_category(category)
         for i in word.strip():
             current_word_state += "_"
         print(word)
@@ -28,13 +31,16 @@ def setup_standard_mode(gui: GUI.HangmanGUI):
         gui.update_word()
 
 
-def setup_special_mode(gui: GUI.HangmanGUI):
+def setup_special_mode(gui: GUI.HangmanGUI, category: str):
     if are_there_players():
         global word
         global current_word_state, clock_start
         clock_start = datetime.now()
         gui.repeated_over_time_code()
-        word = Database_Logic.get_random_word()
+        if category == "random":
+            word = Database_Logic.get_random_word()
+        else:
+            word = Database_Logic.get_word_from_category(category)
         word = word+word
         for i in word.strip():
             current_word_state += "_"
@@ -45,7 +51,7 @@ def setup_special_mode(gui: GUI.HangmanGUI):
 
 def check_time_over(gui: GUI.HangmanGUI) -> [bool, str]:
     global clock_start, player1, player2, win
-    remaining_time = timedelta(minutes=2) -(datetime.now() - clock_start)
+    remaining_time = timedelta(minutes=2) - (datetime.now() - clock_start)
     if remaining_time.total_seconds() < 0:
         update_statistics(player1, losses=1)
         update_statistics(player2, losses=1)
@@ -74,6 +80,12 @@ def is_player_defined(player: int) -> bool:
 def get_word() -> str:
     global current_word_state
     return " ".join(current_word_state)
+
+
+def get_categories() -> list[str]:
+    result = Database_Logic.get_categories()
+    result.append("random")
+    return result
 
 
 def update_statistics(name: str, hits: int = 0, misses: int = 0, wins: int = 0, losses: int = 0):

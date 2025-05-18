@@ -47,6 +47,26 @@ def get_random_word() -> str:
         return "Error"
 
 
+def get_word_from_category(category: str) -> str:
+    path = "Words/"+category+".txt"
+    try:
+        with open(path, "r") as file:
+            word = file.read()
+        words = word.strip().split("\n")
+        rand = random.randint(0, len(words)-1)
+        return words[rand]
+    except Exception as e:
+        print("Error while loading word", e)
+        return "Error"
+
+
+def get_categories() -> list[str]:
+    with open("Categories.txt", "r") as file:
+        category = file.read()
+    categories = category.strip().split("\n")
+    return categories
+
+
 def register(name: str, password: str) -> bool:
     name = encrypt(name)
     password = encrypt(password)
