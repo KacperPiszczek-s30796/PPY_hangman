@@ -16,6 +16,12 @@ win = True
 clock_start = datetime.now()
 timer = timedelta(minutes=2)
 word_number = 1
+guessed_words = ""
+
+
+def get_guessed_words() -> str:
+    global guessed_words
+    return guessed_words
 
 
 def set_timer(minutes: int = 2, seconds: int = 0):
@@ -78,7 +84,7 @@ def check_time_over(gui: GUI.HangmanGUI) -> [bool, str]:
         update_statistics(player1, losses=1)
         update_statistics(player2, losses=1)
         win = False
-        gui.end()
+        gui.end(win)
         return [True, str(remaining_time)]
     return [False, str(remaining_time)]
 
@@ -151,7 +157,7 @@ def update_word_state(w, c_w_s, e):
 
 
 def on_submit(entry: str, gui: GUI.HangmanGUI):
-    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win
+    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win, guessed_words
     print("letter/word entered:", entry)
     entry = entry.strip().lower()
     if entry in word.lower():
@@ -167,8 +173,10 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         if current_word_state == word:
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
-            gui.end()
+            gui.end(win)
     else:
+        guessed_words += entry+", "
+        gui.update_word()
         if turn % 2 == 0:
             update_statistics(player1, misses=1)
             misses1 += 1
@@ -181,12 +189,12 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
             update_statistics(player1, losses=1)
             update_statistics(player2, losses=1)
             win = False
-            gui.end()
+            gui.end(win)
     turn += 1
 
 
 def special_on_submit(entry: str, gui: GUI.HangmanGUI):
-    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win
+    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win, guessed_words
     print("letter/word entered:", entry)
     entry = entry.strip().lower()
     if entry in word.lower():
@@ -202,8 +210,10 @@ def special_on_submit(entry: str, gui: GUI.HangmanGUI):
         if current_word_state == word:
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
-            gui.end()
+            gui.end(win)
     else:
+        guessed_words += entry + ", "
+        gui.special_update_word()
         if turn % 2 == 0:
             update_statistics(player1, misses=1)
             misses1 += 1
@@ -216,41 +226,45 @@ def special_on_submit(entry: str, gui: GUI.HangmanGUI):
             update_statistics(player1, losses=1)
             update_statistics(player2, losses=1)
             win = False
-            gui.end()
+            gui.end(win)
     turn += 1
 
 
-def register_player1(name: str, password: str):
+def register_player1(name: str, password: str, gui: GUI.HangmanGUI):
     global player1
     if Database_Logic.register(name, password):
         print("successfully registered")
+        gui.player1_logged_in()
         player1 = name
     else:
         print("failed to register")
 
 
-def register_player2(name: str, password: str):
+def register_player2(name: str, password: str, gui: GUI.HangmanGUI):
     global player2
     if Database_Logic.register(name, password):
         print("successfully registered")
+        gui.player2_logged_in()
         player2 = name
     else:
         print("failed to register")
 
 
-def login_player1(name: str, password: str):
+def login_player1(name: str, password: str, gui: GUI.HangmanGUI):
     global player1
     if Database_Logic.login(name, password):
         print("successfully logged in")
+        gui.player1_logged_in()
         player1 = name
     else:
         print("failed to log in")
 
 
-def login_player2(name: str, password: str):
+def login_player2(name: str, password: str, gui: GUI.HangmanGUI):
     global player2
     if Database_Logic.login(name, password):
         print("successfully logged in")
+        gui.player2_logged_in()
         player2 = name
     else:
         print("failed to log in")
@@ -278,7 +292,7 @@ def export_player2():
         print("failed to export player")
 
 
-def clear():
+def clear(gui: GUI.HangmanGUI):
     global player1, player2, word, current_word_state, turn, hits1, misses1, hits2, misses2, win
     player1 = ""
     player2 = ""
@@ -290,3 +304,5 @@ def clear():
     hits2 = 0
     misses2 = 0
     win = True
+    gui.player1_not_logged_in()
+    gui.player2_not_logged_in()

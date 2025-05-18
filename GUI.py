@@ -31,6 +31,7 @@ class HangmanGUI:
         self.menu_player1_login = tk.Button(self.menu_frame, text="Login")
         self.menu_player1_register = tk.Button(self.menu_frame, text="Register")
         self.menu_player1_statistics = tk.Button(self.menu_frame, text="Statistics")
+        self.menu_player1_logged_in = tk.Label(self.menu_frame, text="Not logged in", font=("Arial", 24))
 
         self.menu_player2_label = tk.Label(self.menu_frame, text="Player2", font=("Arial", 24))
         self.menu_player2_name_label = tk.Label(self.menu_frame, text="Name: ", font=("Arial", 24))
@@ -40,6 +41,7 @@ class HangmanGUI:
         self.menu_player2_login = tk.Button(self.menu_frame, text="Login")
         self.menu_player2_register = tk.Button(self.menu_frame, text="Register")
         self.menu_player2_statistics = tk.Button(self.menu_frame, text="Statistics")
+        self.menu_player2_logged_in = tk.Label(self.menu_frame, text="Not logged in", font=("Arial", 24))
 
         self.menu_label.grid(row=0, column=0)
         self.menu_start.grid(row=1, column=0)
@@ -50,6 +52,7 @@ class HangmanGUI:
         self.menu_player1_name_entry.grid(row=4, column=1)
         self.menu_player1_Password_label.grid(row=4, column=2)
         self.menu_player1_Password_entry.grid(row=4, column=3)
+        self.menu_player1_logged_in.grid(row=4, column=4)
         self.menu_player1_login.grid(row=5, column=0)
         self.menu_player1_register.grid(row=5, column=1)
         self.menu_player1_statistics.grid(row=5, column=2)
@@ -59,16 +62,17 @@ class HangmanGUI:
         self.menu_player2_name_entry.grid(row=7, column=1)
         self.menu_player2_Password_label.grid(row=7, column=2)
         self.menu_player2_Password_entry.grid(row=7, column=3)
+        self.menu_player2_logged_in.grid(row=7, column=4)
         self.menu_player2_login.grid(row=8, column=0)
         self.menu_player2_register.grid(row=8, column=1)
         self.menu_player2_statistics.grid(row=8, column=2)
 
         self.menu_start.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self, self.settings_category)))
         self.menu_button2.config(command=lambda: (self.show_frame(self.special_game_frame), Game_Logic.setup_special_mode(self, self.settings_category)))
-        self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
-        self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
-        self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
-        self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
+        self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get(), self))
+        self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get(), self))
+        self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get(), self))
+        self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get(), self))
         self.menu_player1_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(1)))
         self.menu_player2_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(2)))
         self.menu_settings.config(command=lambda: self.show_frame(self.settings_frame))
@@ -87,7 +91,7 @@ class HangmanGUI:
         self.end_player2_label.grid(row=3, column=0)
         self.end_player2_button.grid(row=3, column=1)
 
-        self.end_button.config(command=lambda: (self.show_frame(self.menu_frame), Game_Logic.clear()))
+        self.end_button.config(command=lambda: (self.show_frame(self.menu_frame), Game_Logic.clear(self)))
         self.end_player1_button.config(command=lambda: Game_Logic.export_player1())
         self.end_player2_button.config(command=lambda: Game_Logic.export_player2())
         # Game
@@ -98,12 +102,14 @@ class HangmanGUI:
         self.labelI = tk.Label(self.game_frame, image=self.image0)
         self.I_counter = 0
         self.word = tk.Label(self.game_frame, text=Game_Logic.get_word(), font=self.large_font)
+        self.guessed_word = tk.Label(self.game_frame, text=Game_Logic.get_guessed_words())
 
         self.labelI.grid(row=0, column=0)
         self.word.grid(row=0, column=1)
         self.label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
         self.entry.grid(row=1, column=1, padx=10, pady=10)
         self.button.grid(row=2, column=0, columnspan=2, pady=10)
+        self.guessed_word.grid(row=3, column=0)
 
         self.button.config(command=lambda: Game_Logic.on_submit(self.entry.get(), self))
 
@@ -162,6 +168,7 @@ class HangmanGUI:
         self.special_I_counter = 0
         self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font, wraplength=350,  justify="left")
         self.special_time = tk.Label(self.special_game_frame, text="")
+        self.special_guessed_word = tk.Label(self.special_game_frame, text=Game_Logic.get_guessed_words())
 
         self.special_time.grid(row=0, column=0)
         self.special_labelI.grid(row=1, column=0)
@@ -169,8 +176,21 @@ class HangmanGUI:
         self.special_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
         self.special_entry.grid(row=2, column=1, padx=10, pady=10)
         self.special_button.grid(row=3, column=0, columnspan=2, pady=10)
+        self.special_guessed_word.grid(row=5, column=0)
 
         self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
+
+    def player1_logged_in(self):
+        self.menu_player1_logged_in.config(text="Logged in")
+
+    def player2_logged_in(self):
+        self.menu_player2_logged_in.config(text="Logged in")
+
+    def player1_not_logged_in(self):
+        self.menu_player1_logged_in.config(text="Not logged in")
+
+    def player2_not_logged_in(self):
+        self.menu_player2_logged_in.config(text="Not logged in")
 
     def set_time(self, minutes, seconds):
         import Game_Logic
@@ -209,10 +229,12 @@ class HangmanGUI:
     def update_word(self):
         import Game_Logic
         self.word.configure(text=Game_Logic.get_word())
+        self.guessed_word.config(text=Game_Logic.get_guessed_words())
 
     def special_update_word(self):
         import Game_Logic
         self.special_word.configure(text=Game_Logic.get_word())
+        self.special_guessed_word.config(text=Game_Logic.get_guessed_words())
 
     def show_frame(self, frame_to_show):
         import Game_Logic
@@ -243,7 +265,11 @@ class HangmanGUI:
         self.show_frame(self.menu_frame)
         self.root.mainloop()
 
-    def end(self):
+    def end(self, result: bool):
+        if result:
+            self.end_label.config(text="Game won")
+        else:
+            self.end_label.config(text="Game lost")
         image_path = "png/hangman0.png"
         image = tk.PhotoImage(file=image_path)
         self.special_labelI.configure(image=image)
