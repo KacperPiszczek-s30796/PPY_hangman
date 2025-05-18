@@ -14,6 +14,12 @@ hits2 = 0
 misses2 = 0
 win = True
 clock_start = datetime.now()
+timer = timedelta(minutes=2)
+
+
+def set_timer(minutes: int = 2, seconds: int = 0):
+    global timer
+    timer = timedelta(minutes=minutes, seconds=seconds)
 
 
 def setup_standard_mode(gui: GUI.HangmanGUI, category: str):
@@ -50,8 +56,8 @@ def setup_special_mode(gui: GUI.HangmanGUI, category: str):
 
 
 def check_time_over(gui: GUI.HangmanGUI) -> [bool, str]:
-    global clock_start, player1, player2, win
-    remaining_time = timedelta(minutes=2) - (datetime.now() - clock_start)
+    global clock_start, player1, player2, win, timer
+    remaining_time = timer - (datetime.now() - clock_start)
     if remaining_time.total_seconds() < 0:
         update_statistics(player1, losses=1)
         update_statistics(player2, losses=1)

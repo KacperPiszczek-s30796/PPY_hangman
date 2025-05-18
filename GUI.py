@@ -123,15 +123,28 @@ class HangmanGUI:
         self.settings_button = tk.Button(self.settings_frame, text="Back to menu")
         self.settings_label_category = tk.Label(self.settings_frame, text="Category: ")
         self.settings_combobox_category = ttk.Combobox(self.settings_frame, values=Game_Logic.get_categories())
+        self.settings_label_time = tk.Label(self.settings_frame, text="special mode settings:")
+        self.settings_label_time_minutes = tk.Label(self.settings_frame, text="minutes: ")
+        self.settings_label_time_seconds = tk.Label(self.settings_frame, text="seconds: ")
+        self.settings_entry_time_minutes = tk.Entry(self.settings_frame)
+        self.settings_entry_time_seconds = tk.Entry(self.settings_frame)
+        self.settings_button_time = tk.Button(self.settings_frame, text="Save time")
 
         self.settings_label.grid(row=0, column=0)
         self.settings_button.grid(row=1, column=0)
         self.settings_label_category.grid(row=2, column=0)
         self.settings_combobox_category.grid(row=2, column=1)
+        self.settings_label_time.grid(row=3, column=0)
+        self.settings_label_time_minutes.grid(row=4, column=0)
+        self.settings_label_time_seconds.grid(row=4, column=2)
+        self.settings_entry_time_minutes.grid(row=4, column=1)
+        self.settings_entry_time_seconds.grid(row=4, column=3)
+        self.settings_button_time.grid(row=5, column=0)
 
         self.settings_button.config(command=lambda: self.show_frame(self.menu_frame))
         self.settings_combobox_category.current(0)
         self.settings_combobox_category.bind("<<ComboboxSelected>>", self.on_select)
+        self.settings_button_time.config(command=lambda: self.set_time(self.settings_entry_time_minutes.get(), self.settings_entry_time_seconds.get()))
 
         # Special Game
         self.special_label = tk.Label(self.special_game_frame, text="Enter letter/word:")
@@ -151,6 +164,13 @@ class HangmanGUI:
         self.special_button.grid(row=3, column=0, columnspan=2, pady=10)
 
         self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
+
+    def set_time(self, minutes, seconds):
+        import Game_Logic
+        try:
+            Game_Logic.set_timer(int(minutes), int(seconds))
+        except ValueError:
+            print("failed to save time")
 
     def on_select(self, event):
         selected = self.settings_combobox_category.get()
@@ -217,4 +237,12 @@ class HangmanGUI:
         self.root.mainloop()
 
     def end(self):
+        image_path = "png/hangman0.png"
+        image = tk.PhotoImage(file=image_path)
+        self.special_labelI.configure(image=image)
+        self.special_labelI.image = image
+        self.labelI.configure(image=image)
+        self.labelI.image = image
+        self.special_I_counter = 0
+        self.I_counter = 0
         self.show_frame(self.end_frame)
