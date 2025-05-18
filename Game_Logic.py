@@ -1,4 +1,4 @@
-
+import textwrap
 from datetime import datetime, timedelta
 import Database_Logic
 import GUI
@@ -63,13 +63,13 @@ def setup_special_mode(gui: GUI.HangmanGUI, category: str):
             word = Database_Logic.get_word_from_category(category)
         for i in range(word_number):
             if category == "random":
-                word += "-"+Database_Logic.get_random_word()
+                word += " "+Database_Logic.get_random_word()
             else:
-                word += "-"+Database_Logic.get_word_from_category(category)
+                word += " "+Database_Logic.get_word_from_category(category)
         word = word.strip()
         for i in word:
-            if i == '-':
-                current_word_state += "-"
+            if i == ' ':
+                current_word_state += " "
             else:
                 current_word_state += "_"
         print(word)
@@ -107,7 +107,8 @@ def is_player_defined(player: int) -> bool:
 
 def get_word() -> str:
     global current_word_state
-    return " ".join(current_word_state)
+    result = "\n".join(textwrap.wrap(current_word_state, width=10))
+    return " ".join(result)
 
 
 def get_categories() -> list[str]:

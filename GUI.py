@@ -166,9 +166,9 @@ class HangmanGUI:
         self.special_image0 = tk.PhotoImage(file="png/hangman0.png")
         self.special_labelI = tk.Label(self.special_game_frame, image=self.special_image0)
         self.special_I_counter = 0
-        self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font, wraplength=350,  justify="left")
+        self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font)
         self.special_time = tk.Label(self.special_game_frame, text="")
-        self.special_guessed_word = tk.Label(self.special_game_frame, text=Game_Logic.get_guessed_words())
+        self.special_guessed_word = tk.Label(self.special_game_frame, text=Game_Logic.get_guessed_words(), font=("Arial", 40))
 
         self.special_time.grid(row=0, column=0)
         self.special_labelI.grid(row=1, column=0)
