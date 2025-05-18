@@ -129,6 +129,9 @@ class HangmanGUI:
         self.settings_entry_time_minutes = tk.Entry(self.settings_frame)
         self.settings_entry_time_seconds = tk.Entry(self.settings_frame)
         self.settings_button_time = tk.Button(self.settings_frame, text="Save time")
+        self.settings_label_word_number = tk.Label(self.settings_frame, text="number of additional words: ")
+        self.settings_entry_word_number = tk.Entry(self.settings_frame)
+        self.settings_button_word_number = tk.Button(self.settings_frame, text="Save number of additional words")
 
         self.settings_label.grid(row=0, column=0)
         self.settings_button.grid(row=1, column=0)
@@ -139,12 +142,16 @@ class HangmanGUI:
         self.settings_label_time_seconds.grid(row=4, column=2)
         self.settings_entry_time_minutes.grid(row=4, column=1)
         self.settings_entry_time_seconds.grid(row=4, column=3)
-        self.settings_button_time.grid(row=5, column=0)
+        self.settings_button_time.grid(row=4, column=4)
+        self.settings_label_word_number.grid(row=5, column=0)
+        self.settings_entry_word_number.grid(row=5, column=1)
+        self.settings_button_word_number.grid(row=5, column=2)
 
         self.settings_button.config(command=lambda: self.show_frame(self.menu_frame))
         self.settings_combobox_category.current(0)
         self.settings_combobox_category.bind("<<ComboboxSelected>>", self.on_select)
         self.settings_button_time.config(command=lambda: self.set_time(self.settings_entry_time_minutes.get(), self.settings_entry_time_seconds.get()))
+        self.settings_button_word_number.config(command=lambda: Game_Logic.set_word_number(self.settings_entry_word_number.get()))
 
         # Special Game
         self.special_label = tk.Label(self.special_game_frame, text="Enter letter/word:")
@@ -153,7 +160,7 @@ class HangmanGUI:
         self.special_image0 = tk.PhotoImage(file="png/hangman0.png")
         self.special_labelI = tk.Label(self.special_game_frame, image=self.special_image0)
         self.special_I_counter = 0
-        self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font)
+        self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font, wraplength=350,  justify="left")
         self.special_time = tk.Label(self.special_game_frame, text="")
 
         self.special_time.grid(row=0, column=0)

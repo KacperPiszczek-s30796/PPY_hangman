@@ -15,11 +15,20 @@ misses2 = 0
 win = True
 clock_start = datetime.now()
 timer = timedelta(minutes=2)
+word_number = 1
 
 
 def set_timer(minutes: int = 2, seconds: int = 0):
     global timer
     timer = timedelta(minutes=minutes, seconds=seconds)
+
+
+def set_word_number(number: str):
+    global word_number
+    try:
+        word_number = int(number)
+    except ValueError:
+        print("failed to save number")
 
 
 def setup_standard_mode(gui: GUI.HangmanGUI, category: str):
@@ -39,17 +48,24 @@ def setup_standard_mode(gui: GUI.HangmanGUI, category: str):
 
 def setup_special_mode(gui: GUI.HangmanGUI, category: str):
     if are_there_players():
-        global word
-        global current_word_state, clock_start
+        global word, current_word_state, clock_start, word_number
         clock_start = datetime.now()
         gui.repeated_over_time_code()
         if category == "random":
             word = Database_Logic.get_random_word()
         else:
             word = Database_Logic.get_word_from_category(category)
-        word = word+word
-        for i in word.strip():
-            current_word_state += "_"
+        for i in range(word_number):
+            if category == "random":
+                word += "-"+Database_Logic.get_random_word()
+            else:
+                word += "-"+Database_Logic.get_word_from_category(category)
+        word = word.strip()
+        for i in word:
+            if i == '-':
+                current_word_state += "-"
+            else:
+                current_word_state += "_"
         print(word)
         print(current_word_state)
         gui.special_update_word()
@@ -90,7 +106,7 @@ def get_word() -> str:
 
 def get_categories() -> list[str]:
     result = Database_Logic.get_categories()
-    result.append("random")
+    result.insert(0, "random")
     return result
 
 
