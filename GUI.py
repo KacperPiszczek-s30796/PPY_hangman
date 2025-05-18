@@ -10,8 +10,10 @@ class HangmanGUI:
         self.large_font = ("Arial", 32, "bold")
         self.menu_frame = tk.Frame(self.root)
         self.game_frame = tk.Frame(self.root)
+        self.special_game_frame = tk.Frame(self.root)
         self.end_frame = tk.Frame(self.root)
         self.statistics_frame = tk.Frame(self.root)
+        self.settings_frame = tk.Frame(self.root)
         # Menu
         self.menu_label = tk.Label(self.menu_frame, text="Main Menu", font=("Arial", 40))
         self.menu_start = tk.Button(self.menu_frame, text="Start Standard Game")
@@ -58,12 +60,14 @@ class HangmanGUI:
         self.menu_player2_statistics.grid(row=8, column=2)
 
         self.menu_start.config(command=lambda: (self.show_frame(self.game_frame), Game_Logic.setup_standard_mode(self)))
+        self.menu_button2.config(command=lambda: (self.show_frame(self.special_game_frame), Game_Logic.setup_special_mode(self)))
         self.menu_player1_register.config(command=lambda: Game_Logic.register_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
         self.menu_player2_register.config(command=lambda: Game_Logic.register_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         self.menu_player1_login.config(command=lambda: Game_Logic.login_player1(self.menu_player1_name_entry.get(), self.menu_player1_Password_entry.get()))
         self.menu_player2_login.config(command=lambda: Game_Logic.login_player2(self.menu_player2_name_entry.get(), self.menu_player2_Password_entry.get()))
         self.menu_player1_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(1)))
         self.menu_player2_statistics.config(command=lambda: (self.show_frame(self.statistics_frame), self.set_statistics_frame(2)))
+        self.menu_settings.config(command=lambda: self.show_frame(self.settings_frame))
         # end
         self.end_label = tk.Label(self.end_frame, text="Game ended", font=("Arial", 24))
         self.end_button = tk.Button(self.end_frame, text="Back to menu")
@@ -110,6 +114,32 @@ class HangmanGUI:
 
         self.statistics_button.config(command=lambda: (self.show_frame(self.menu_frame), self.clear_statistics()))
 
+        # settings
+        self.settings_label = tk.Label(self.settings_frame, text="Settings")
+        self.settings_button = tk.Button(self.settings_frame, text="Back to menu")
+
+        self.settings_label.grid(row=0, column=0)
+        self.settings_button.grid(row=1, column=0)
+
+        self.settings_button.config(command=lambda: self.show_frame(self.menu_frame))
+
+        # Special Game
+        self.special_label = tk.Label(self.special_game_frame, text="Enter letter/word:")
+        self.special_entry = tk.Entry(self.special_game_frame)
+        self.special_button = tk.Button(self.special_game_frame, text="Submit")
+        self.special_image0 = tk.PhotoImage(file="png/hangman0.png")
+        self.special_labelI = tk.Label(self.special_game_frame, image=self.special_image0)
+        self.special_I_counter = 0
+        self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font)
+
+        self.special_labelI.grid(row=0, column=0)
+        self.special_word.grid(row=0, column=1)
+        self.special_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        self.special_entry.grid(row=1, column=1, padx=10, pady=10)
+        self.special_button.grid(row=2, column=0, columnspan=2, pady=10)
+
+        self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
+
     def next_image(self):
         self.I_counter += 1
         image_path = "png/hangman" + str(self.I_counter) + ".png"
@@ -118,21 +148,36 @@ class HangmanGUI:
         self.labelI.image = image
         return self.I_counter
 
+    def special_next_image(self):
+        self.special_I_counter += 1
+        image_path = "png/hangman" + str(self.special_I_counter) + ".png"
+        image = tk.PhotoImage(file=image_path)
+        self.special_labelI.configure(image=image)
+        self.special_labelI.image = image
+        return self.special_I_counter
+
     def update_word(self):
         import Game_Logic
         self.word.configure(text=Game_Logic.get_word())
 
+    def special_update_word(self):
+        import Game_Logic
+        self.special_word.configure(text=Game_Logic.get_word())
+
     def show_frame(self, frame_to_show):
         import Game_Logic
-        if not (not Game_Logic.are_there_players() and frame_to_show == self.game_frame):
-            if frame_to_show == self.game_frame:
+        if not (not Game_Logic.are_there_players() and (frame_to_show == self.game_frame or frame_to_show == self.special_game_frame)):
+            if frame_to_show == self.game_frame or frame_to_show == self.special_game_frame:
                 self.entry.delete(0, tk.END)
+                self.special_entry.delete(0, tk.END)
                 image_path = "png/hangman0.png"
                 image = tk.PhotoImage(file=image_path)
                 self.labelI.configure(image=image)
                 self.labelI.image = image
+                self.special_labelI.configure(image=image)
+                self.special_labelI.image = image
 
-            for frame in (self.menu_frame, self.game_frame, self.end_frame, self.statistics_frame):
+            for frame in (self.menu_frame, self.game_frame, self.end_frame, self.statistics_frame, self.settings_frame, self.special_game_frame):
                 frame.pack_forget()
             frame_to_show.pack(fill="both", expand=True)
 

@@ -18,10 +18,24 @@ def setup_standard_mode(gui: GUI.HangmanGUI):
         global word
         global current_word_state
         word = Database_Logic.get_random_word()
-        for i in range(0, len(word)):
-            current_word_state += "_ "
+        for i in word.strip():
+            current_word_state += "_"
         print(word)
+        print(current_word_state)
         gui.update_word()
+
+
+def setup_special_mode(gui: GUI.HangmanGUI):
+    if are_there_players():
+        global word
+        global current_word_state
+        word = Database_Logic.get_random_word()
+        word=word+word
+        for i in word.strip():
+            current_word_state += "_"
+        print(word)
+        print(current_word_state)
+        gui.special_update_word()
 
 
 def are_there_players() -> bool:
@@ -42,7 +56,7 @@ def is_player_defined(player: int) -> bool:
 
 def get_word() -> str:
     global current_word_state
-    return current_word_state
+    return " ".join(current_word_state)
 
 
 def update_statistics(name: str, hits: int = 0, misses: int = 0, wins: int = 0, losses: int = 0):
@@ -69,6 +83,22 @@ def get_statistics(player: int) -> str:
     return result
 
 
+def update_word_state(w, c_w_s, e):
+    print("uws: "+w+" "+c_w_s+" "+e)
+    w = w.lower()
+    e = e.lower()
+    result = list(c_w_s)
+    start = 0
+    while True:
+        idx = w.find(e, start)
+        if idx == -1:
+            break
+        for i in range(len(e)):
+            result[idx + i] = e[i]
+        start = idx + 1
+    return ''.join(result)
+
+
 def on_submit(entry: str, gui: GUI.HangmanGUI):
     global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win
     print("letter/word entered:", entry)
@@ -81,9 +111,7 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
             update_statistics(player2, hits=1)
             hits2 += 1
         print("correct")
-        index = word.find(entry)*2
-        entry = " ".join(entry)+" "
-        current_word_state = current_word_state[:index]+entry+current_word_state[index+len(entry):]
+        current_word_state = update_word_state(word, current_word_state, entry)
         gui.update_word()
         if current_word_state == " ".join(word)+" ":
             update_statistics(player1, wins=1)
@@ -105,6 +133,40 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
             gui.end()
     turn += 1
 
+
+def special_on_submit(entry: str, gui: GUI.HangmanGUI):
+    global word, current_word_state, player1, player2, turn, hits1, hits2, misses1, misses2, win
+    print("letter/word entered:", entry)
+    entry = entry.strip().lower()
+    if entry in word.lower():
+        if turn % 2 == 0:
+            update_statistics(player1, hits=1)
+            hits1 += 1
+        else:
+            update_statistics(player2, hits=1)
+            hits2 += 1
+        print("correct")
+        current_word_state = current_word_state = update_word_state(word, current_word_state, entry)
+        gui.special_update_word()
+        if current_word_state == " ".join(word)+" ":
+            update_statistics(player1, wins=1)
+            update_statistics(player2, wins=1)
+            gui.end()
+    else:
+        if turn % 2 == 0:
+            update_statistics(player1, misses=1)
+            misses1 += 1
+        else:
+            update_statistics(player2, misses=1)
+            misses2 += 1
+        print("incorrect")
+        i_counter = gui.special_next_image()
+        if i_counter >= 12:
+            update_statistics(player1, losses=1)
+            update_statistics(player2, losses=1)
+            win = False
+            gui.end()
+    turn += 1
 
 def register_player1(name: str, password: str):
     global player1
