@@ -131,14 +131,23 @@ class HangmanGUI:
         self.special_labelI = tk.Label(self.special_game_frame, image=self.special_image0)
         self.special_I_counter = 0
         self.special_word = tk.Label(self.special_game_frame, text=Game_Logic.get_word(), font=self.large_font)
+        self.special_time = tk.Label(self.special_game_frame, text="")
 
-        self.special_labelI.grid(row=0, column=0)
-        self.special_word.grid(row=0, column=1)
-        self.special_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
-        self.special_entry.grid(row=1, column=1, padx=10, pady=10)
-        self.special_button.grid(row=2, column=0, columnspan=2, pady=10)
+        self.special_time.grid(row=0, column=0)
+        self.special_labelI.grid(row=1, column=0)
+        self.special_word.grid(row=1, column=1)
+        self.special_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+        self.special_entry.grid(row=2, column=1, padx=10, pady=10)
+        self.special_button.grid(row=3, column=0, columnspan=2, pady=10)
 
         self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
+
+    def repeated_over_time_code(self):
+        import Game_Logic
+        check_time = Game_Logic.check_time_over(self)
+        self.special_time.config(text=check_time[1])
+        if not check_time[0]:
+            self.root.after(1000, self.repeated_over_time_code)
 
     def next_image(self):
         self.I_counter += 1

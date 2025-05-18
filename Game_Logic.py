@@ -1,3 +1,5 @@
+
+from datetime import datetime, timedelta
 import Database_Logic
 import GUI
 
@@ -11,6 +13,7 @@ misses1 = 0
 hits2 = 0
 misses2 = 0
 win = True
+clock_start = datetime.now()
 
 
 def setup_standard_mode(gui: GUI.HangmanGUI):
@@ -28,14 +31,28 @@ def setup_standard_mode(gui: GUI.HangmanGUI):
 def setup_special_mode(gui: GUI.HangmanGUI):
     if are_there_players():
         global word
-        global current_word_state
+        global current_word_state, clock_start
+        clock_start = datetime.now()
+        gui.repeated_over_time_code()
         word = Database_Logic.get_random_word()
-        word=word+word
+        word = word+word
         for i in word.strip():
             current_word_state += "_"
         print(word)
         print(current_word_state)
         gui.special_update_word()
+
+
+def check_time_over(gui: GUI.HangmanGUI) -> [bool, str]:
+    global clock_start, player1, player2, win
+    remaining_time = timedelta(minutes=2) -(datetime.now() - clock_start)
+    if remaining_time.total_seconds() < 0:
+        update_statistics(player1, losses=1)
+        update_statistics(player2, losses=1)
+        win = False
+        gui.end()
+        return [True, str(remaining_time)]
+    return [False, str(remaining_time)]
 
 
 def are_there_players() -> bool:
@@ -113,7 +130,7 @@ def on_submit(entry: str, gui: GUI.HangmanGUI):
         print("correct")
         current_word_state = update_word_state(word, current_word_state, entry)
         gui.update_word()
-        if current_word_state == " ".join(word)+" ":
+        if current_word_state == word:
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
             gui.end()
@@ -148,7 +165,7 @@ def special_on_submit(entry: str, gui: GUI.HangmanGUI):
         print("correct")
         current_word_state = current_word_state = update_word_state(word, current_word_state, entry)
         gui.special_update_word()
-        if current_word_state == " ".join(word)+" ":
+        if current_word_state == word:
             update_statistics(player1, wins=1)
             update_statistics(player2, wins=1)
             gui.end()
@@ -167,6 +184,7 @@ def special_on_submit(entry: str, gui: GUI.HangmanGUI):
             win = False
             gui.end()
     turn += 1
+
 
 def register_player1(name: str, password: str):
     global player1
