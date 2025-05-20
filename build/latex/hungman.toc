@@ -1,0 +1,5 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Game Logic Module}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}GUI Module}{7}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Database Logic Module}{9}{chapter.3}%
+\contentsline {chapter}{Python Module Index}{11}{section*.52}%
