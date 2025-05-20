@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Game Logic Module &#8212; hungman 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="hungman documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-Game_Logic">
+<span id="game-logic-module"></span><h1>Game Logic Module<a class="headerlink" href="#module-Game_Logic" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.are_there_players">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">are_there_players</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Game_Logic.are_there_players" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if both players are registered or logged in.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>bool: True if both players are set, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.check_time_over">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">check_time_over</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">[&lt;class</span> <span class="pre">'bool'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'str'&gt;]</span></span></span><a class="headerlink" href="#Game_Logic.check_time_over" title="Link to this definition">¶</a></dt>
+<dd><p>Checks whether the game timer has run out.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>gui (GUI.HangmanGUI): The GUI instance to call game-end behavior.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[bool, str]: [True, remaining_time_str] if time is up, else [False, remaining_time_str].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.clear">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.clear" title="Link to this definition">¶</a></dt>
+<dd><p>Resets the game state and clears player information.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>gui (GUI.HangmanGUI): The GUI instance to reset interface state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.export_player1">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">export_player1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.export_player1" title="Link to this definition">¶</a></dt>
+<dd><p>Exports player 1’s game result and statistics to the database.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.export_player2">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">export_player2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.export_player2" title="Link to this definition">¶</a></dt>
+<dd><p>Exports player 2’s game result and statistics to the database.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.get_categories">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">get_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Game_Logic.get_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches the list of word categories including ‘random’.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>list[str]: A list of category names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.get_guessed_words">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">get_guessed_words</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Game_Logic.get_guessed_words" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the string of guessed letters or words so far.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: A comma-separated string of guessed entries.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.get_statistics">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">get_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Game_Logic.get_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves and formats the statistics for the specified player.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>player (int): Player number (1 or 2).</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: A formatted string of player statistics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.get_word">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">get_word</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Game_Logic.get_word" title="Link to this definition">¶</a></dt>
+<dd><p>Formats and returns the current masked word with line breaks.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>str: The formatted masked word with line breaks every 10 characters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.is_player_defined">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">is_player_defined</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Game_Logic.is_player_defined" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if a player is defined (registered or logged in).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>player (int): Player number (1 or 2).</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True if the specified player is set, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.login_player1">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">login_player1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.login_player1" title="Link to this definition">¶</a></dt>
+<dd><p>Logs in player 1 using the provided credentials.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Username.
+password (str): Password.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.login_player2">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">login_player2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.login_player2" title="Link to this definition">¶</a></dt>
+<dd><p>Logs in player 2 using the provided credentials.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Username.
+password (str): Password.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.on_submit">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">on_submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.on_submit" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user input during standard mode and updates the game state.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>entry (str): The guessed letter or word.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.register_player1">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">register_player1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.register_player1" title="Link to this definition">¶</a></dt>
+<dd><p>Registers player 1 using the provided credentials.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Username.
+password (str): Password.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.register_player2">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">register_player2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.register_player2" title="Link to this definition">¶</a></dt>
+<dd><p>Registers player 2 using the provided credentials.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Username.
+password (str): Password.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.set_timer">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">set_timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.set_timer" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the countdown timer for the game.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>minutes (int): Minutes to set. Defaults to 2.
+seconds (int): Seconds to set. Defaults to 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.set_word_number">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">set_word_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.set_word_number" title="Link to this definition">¶</a></dt>
+<dd><p>Sets how many words will be used in special mode.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>number (str): The number of words as a string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.setup_special_mode">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">setup_special_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.setup_special_mode" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the game in special mode with multiple words.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>gui (GUI.HangmanGUI): The GUI instance to update the interface.
+category (str): The category to select words from. Can be ‘random’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.setup_standard_mode">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">setup_standard_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.setup_standard_mode" title="Link to this definition">¶</a></dt>
+<dd><p>Initializes the game in standard mode with a word from a given category.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>gui (GUI.HangmanGUI): The GUI instance to update the interface.
+category (str): The category to select the word from. Can be ‘random’.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.special_on_submit">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">special_on_submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#GUI.HangmanGUI" title="GUI.HangmanGUI"><span class="pre">HangmanGUI</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.special_on_submit" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user input during special mode and updates the game state.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>entry (str): The guessed letter or word.
+gui (GUI.HangmanGUI): The GUI instance to update the interface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.update_statistics">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">update_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">misses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.update_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the player statistics in the database.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Player name.
+hits (int): Number of hits to add. Defaults to 0.
+misses (int): Number of misses to add. Defaults to 0.
+wins (int): Number of wins to add. Defaults to 0.
+losses (int): Number of losses to add. Defaults to 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Game_Logic.update_word_state">
+<span class="sig-prename descclassname"><span class="pre">Game_Logic.</span></span><span class="sig-name descname"><span class="pre">update_word_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_w_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Game_Logic.update_word_state" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the masked word state based on a correct guess.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>w (str): The full word or phrase.
+c_w_s (str): Current masked word state.
+e (str): The guessed letter or word.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Updated masked word state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-GUI">
+<span id="gui-module"></span><h1>GUI Module<a class="headerlink" href="#module-GUI" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="GUI.HangmanGUI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">GUI.</span></span><span class="sig-name descname"><span class="pre">HangmanGUI</span></span><a class="headerlink" href="#GUI.HangmanGUI" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.clear_statistics">
+<span class="sig-name descname"><span class="pre">clear_statistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.clear_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Clears the displayed statistics from the statistics frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.end">
+<span class="sig-name descname"><span class="pre">end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.end" title="Link to this definition">¶</a></dt>
+<dd><p>Ends the game, resets the interface, and shows the result screen.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>result (bool): True if the game was won, False if lost.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.next_image">
+<span class="sig-name descname"><span class="pre">next_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.next_image" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the hangman image for standard mode to the next stage.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>int: The current image counter value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.on_select">
+<span class="sig-name descname"><span class="pre">on_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.on_select" title="Link to this definition">¶</a></dt>
+<dd><p>Handles category selection from the dropdown.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>event: The event object from the combobox selection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.player1_logged_in">
+<span class="sig-name descname"><span class="pre">player1_logged_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.player1_logged_in" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the UI to indicate that player 1 is logged in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.player1_not_logged_in">
+<span class="sig-name descname"><span class="pre">player1_not_logged_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.player1_not_logged_in" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the UI to indicate that player 1 is not logged in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.player2_logged_in">
+<span class="sig-name descname"><span class="pre">player2_logged_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.player2_logged_in" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the UI to indicate that player 2 is logged in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.player2_not_logged_in">
+<span class="sig-name descname"><span class="pre">player2_not_logged_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.player2_not_logged_in" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the UI to indicate that player 2 is not logged in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.repeated_over_time_code">
+<span class="sig-name descname"><span class="pre">repeated_over_time_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.repeated_over_time_code" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the special mode timer display and schedules itself to repeat every second.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.set_statistics_frame">
+<span class="sig-name descname"><span class="pre">set_statistics_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.set_statistics_frame" title="Link to this definition">¶</a></dt>
+<dd><p>Displays statistics for the specified player.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>player (int): Player number (1 or 2).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.set_time">
+<span class="sig-name descname"><span class="pre">set_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minutes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.set_time" title="Link to this definition">¶</a></dt>
+<dd><p>Sets the game timer using the provided minutes and seconds.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>minutes (int): Minutes to set.
+seconds (int): Seconds to set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.show_frame">
+<span class="sig-name descname"><span class="pre">show_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_to_show</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.show_frame" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the specified frame in the UI, ensuring proper setup for game modes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>frame_to_show: The tkinter Frame object to be shown.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.special_next_image">
+<span class="sig-name descname"><span class="pre">special_next_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.special_next_image" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the hangman image for special mode to the next stage.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>int: The current special image counter value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.special_update_word">
+<span class="sig-name descname"><span class="pre">special_update_word</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.special_update_word" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the displayed word and guessed letters in special mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.start" title="Link to this definition">¶</a></dt>
+<dd><p>Starts the tkinter main event loop and shows the main menu.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="GUI.HangmanGUI.update_word">
+<span class="sig-name descname"><span class="pre">update_word</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#GUI.HangmanGUI.update_word" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the displayed word and guessed letters in standard mode.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Database_Logic">
+<span id="database-logic-module"></span><h1>Database Logic Module<a class="headerlink" href="#module-Database_Logic" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.decrypt">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">decrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Database_Logic.decrypt" title="Link to this definition">¶</a></dt>
+<dd><p>Decrypts a string that was encrypted with the <cite>encrypt</cite> function,
+shifting letters and digits backward by 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> – The encrypted string to decrypt.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The original decrypted string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.encrypt">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">encrypt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Database_Logic.encrypt" title="Link to this definition">¶</a></dt>
+<dd><p>Encrypts a string by shifting letters and digits forward by 1.
+Wraps around alphabetically and numerically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> – The input string to encrypt.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encrypted string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.export">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Database_Logic.export" title="Link to this definition">¶</a></dt>
+<dd><p>Exports a given text to a file in the ‘exports/’ directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the export file (without extension).</p></li>
+<li><p><strong>text</strong> – The content to write into the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if export was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.get_categories">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">get_categories</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Database_Logic.get_categories" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a list of all available word categories from ‘Categories.txt’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of category names.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.get_random_word">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">get_random_word</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Database_Logic.get_random_word" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a random word from a randomly selected category file listed in ‘Categories.txt’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A random word, or “Error” if something fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.get_word_from_category">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">get_word_from_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Database_Logic.get_word_from_category" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a random word from a given category file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>category</strong> – The name of the category file (without extension).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A random word from the category, or “Error” if it fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.login">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Database_Logic.login" title="Link to this definition">¶</a></dt>
+<dd><p>Validates a player’s login credentials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The username of the player.</p></li>
+<li><p><strong>password</strong> – The password to check.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if login is successful, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.read_statistics">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">read_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Database_Logic.read_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Reads and decrypts the game statistics of a player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – The username of the player.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A decrypted statistics string, or default stats if none exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.register">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Database_Logic.register" title="Link to this definition">¶</a></dt>
+<dd><p>Registers a new player by encrypting and storing their password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The username of the player.</p></li>
+<li><p><strong>password</strong> – The password of the player.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if registration succeeds, False if the user already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Database_Logic.write_statistics">
+<span class="sig-prename descclassname"><span class="pre">Database_Logic.</span></span><span class="sig-name descname"><span class="pre">write_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">statistics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Database_Logic.write_statistics" title="Link to this definition">¶</a></dt>
+<dd><p>Writes encrypted game statistics for a player.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The username of the player.</p></li>
+<li><p><strong>statistics</strong> – A string containing player statistics to store.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if write was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">hungman</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Game Logic Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.are_there_players"><code class="docutils literal notranslate"><span class="pre">are_there_players()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.check_time_over"><code class="docutils literal notranslate"><span class="pre">check_time_over()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.clear"><code class="docutils literal notranslate"><span class="pre">clear()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.export_player1"><code class="docutils literal notranslate"><span class="pre">export_player1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.export_player2"><code class="docutils literal notranslate"><span class="pre">export_player2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.get_guessed_words"><code class="docutils literal notranslate"><span class="pre">get_guessed_words()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.get_statistics"><code class="docutils literal notranslate"><span class="pre">get_statistics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.get_word"><code class="docutils literal notranslate"><span class="pre">get_word()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.is_player_defined"><code class="docutils literal notranslate"><span class="pre">is_player_defined()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.login_player1"><code class="docutils literal notranslate"><span class="pre">login_player1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.login_player2"><code class="docutils literal notranslate"><span class="pre">login_player2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.on_submit"><code class="docutils literal notranslate"><span class="pre">on_submit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.register_player1"><code class="docutils literal notranslate"><span class="pre">register_player1()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.register_player2"><code class="docutils literal notranslate"><span class="pre">register_player2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.set_timer"><code class="docutils literal notranslate"><span class="pre">set_timer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.set_word_number"><code class="docutils literal notranslate"><span class="pre">set_word_number()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.setup_special_mode"><code class="docutils literal notranslate"><span class="pre">setup_special_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.setup_standard_mode"><code class="docutils literal notranslate"><span class="pre">setup_standard_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.special_on_submit"><code class="docutils literal notranslate"><span class="pre">special_on_submit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.update_statistics"><code class="docutils literal notranslate"><span class="pre">update_statistics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Game_Logic.update_word_state"><code class="docutils literal notranslate"><span class="pre">update_word_state()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-GUI">GUI Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#GUI.HangmanGUI"><code class="docutils literal notranslate"><span class="pre">HangmanGUI</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#module-Database_Logic">Database Logic Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.decrypt"><code class="docutils literal notranslate"><span class="pre">decrypt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.encrypt"><code class="docutils literal notranslate"><span class="pre">encrypt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.export"><code class="docutils literal notranslate"><span class="pre">export()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.get_categories"><code class="docutils literal notranslate"><span class="pre">get_categories()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.get_random_word"><code class="docutils literal notranslate"><span class="pre">get_random_word()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.get_word_from_category"><code class="docutils literal notranslate"><span class="pre">get_word_from_category()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.read_statistics"><code class="docutils literal notranslate"><span class="pre">read_statistics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Database_Logic.write_statistics"><code class="docutils literal notranslate"><span class="pre">write_statistics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">hungman documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Kacper Piszczek.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
