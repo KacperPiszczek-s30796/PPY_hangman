@@ -181,18 +181,28 @@ class HangmanGUI:
         self.special_button.config(command=lambda: Game_Logic.special_on_submit(self.special_entry.get(), self))
 
     def player1_logged_in(self):
+        """Updates the UI to indicate that player 1 is logged in."""
         self.menu_player1_logged_in.config(text="Logged in")
 
     def player2_logged_in(self):
+        """Updates the UI to indicate that player 2 is logged in."""
         self.menu_player2_logged_in.config(text="Logged in")
 
     def player1_not_logged_in(self):
+        """Updates the UI to indicate that player 1 is not logged in."""
         self.menu_player1_logged_in.config(text="Not logged in")
 
     def player2_not_logged_in(self):
+        """Updates the UI to indicate that player 2 is not logged in."""
         self.menu_player2_logged_in.config(text="Not logged in")
 
-    def set_time(self, minutes, seconds):
+    def set_time(self, minutes: str, seconds: str):
+        """Sets the game timer using the provided minutes and seconds.
+
+            Args:
+                minutes (int): Minutes to set.
+                seconds (int): Seconds to set.
+            """
         import Game_Logic
         try:
             Game_Logic.set_timer(int(minutes), int(seconds))
@@ -200,10 +210,16 @@ class HangmanGUI:
             print("failed to save time")
 
     def on_select(self, event):
+        """Handles category selection from the dropdown.
+
+            Args:
+                event: The event object from the combobox selection.
+            """
         selected = self.settings_combobox_category.get()
         self.settings_category = selected
 
     def repeated_over_time_code(self):
+        """Updates the special mode timer display and schedules itself to repeat every second."""
         import Game_Logic
         check_time = Game_Logic.check_time_over(self)
         self.special_time.config(text=check_time[1])
@@ -211,6 +227,11 @@ class HangmanGUI:
             self.root.after(1000, self.repeated_over_time_code)
 
     def next_image(self):
+        """Updates the hangman image for standard mode to the next stage.
+
+            Returns:
+                int: The current image counter value.
+            """
         self.I_counter += 1
         image_path = "png/hangman" + str(self.I_counter) + ".png"
         image = tk.PhotoImage(file=image_path)
@@ -219,6 +240,11 @@ class HangmanGUI:
         return self.I_counter
 
     def special_next_image(self):
+        """Updates the hangman image for special mode to the next stage.
+
+            Returns:
+                int: The current special image counter value.
+            """
         self.special_I_counter += 1
         image_path = "png/hangman" + str(self.special_I_counter) + ".png"
         image = tk.PhotoImage(file=image_path)
@@ -227,16 +253,23 @@ class HangmanGUI:
         return self.special_I_counter
 
     def update_word(self):
+        """Updates the displayed word and guessed letters in standard mode."""
         import Game_Logic
         self.word.configure(text=Game_Logic.get_word())
         self.guessed_word.config(text=Game_Logic.get_guessed_words())
 
     def special_update_word(self):
+        """Updates the displayed word and guessed letters in special mode."""
         import Game_Logic
         self.special_word.configure(text=Game_Logic.get_word())
         self.special_guessed_word.config(text=Game_Logic.get_guessed_words())
 
     def show_frame(self, frame_to_show):
+        """Displays the specified frame in the UI, ensuring proper setup for game modes.
+
+            Args:
+                frame_to_show: The tkinter Frame object to be shown.
+            """
         import Game_Logic
         if not (not Game_Logic.are_there_players() and (frame_to_show == self.game_frame or frame_to_show == self.special_game_frame)):
             if frame_to_show == self.game_frame or frame_to_show == self.special_game_frame:
@@ -254,18 +287,30 @@ class HangmanGUI:
             frame_to_show.grid(row=0, column=0, sticky="nsew")
 
     def set_statistics_frame(self, player: int):
+        """Displays statistics for the specified player.
+
+            Args:
+                player (int): Player number (1 or 2).
+            """
         import Game_Logic
         if Game_Logic.is_player_defined(player):
             self.statistics_data.config(text=Game_Logic.get_statistics(player))
 
     def clear_statistics(self):
+        """Clears the displayed statistics from the statistics frame."""
         self.statistics_data.config(text="")
 
     def start(self):
+        """Starts the tkinter main event loop and shows the main menu."""
         self.show_frame(self.menu_frame)
         self.root.mainloop()
 
     def end(self, result: bool):
+        """Ends the game, resets the interface, and shows the result screen.
+
+            Args:
+                result (bool): True if the game was won, False if lost.
+            """
         if result:
             self.end_label.config(text="Game won")
         else:
