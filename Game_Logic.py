@@ -428,7 +428,7 @@ def clear(gui: GUI.HangmanGUI):
         Args:
             gui (GUI.HangmanGUI): The GUI instance to reset interface state.
         """
-    global player1, player2, word, current_word_state, turn, hits1, misses1, hits2, misses2, win
+    global player1, player2, word, current_word_state, turn, hits1, misses1, hits2, misses2, win, guessed_words
     player1 = ""
     player2 = ""
     word = ""
@@ -439,5 +439,6 @@ def clear(gui: GUI.HangmanGUI):
     hits2 = 0
     misses2 = 0
     win = True
+    guessed_words = ""
     gui.player1_not_logged_in()
     gui.player2_not_logged_in()
